@@ -9,72 +9,74 @@
         android:id="@+id/clock_view"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:layout_below="@+id/clock_face_button_change_color"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp" />
 
     <Button
         android:id="@+id/clock_face_button_change_color"
-        android:layout_width="@dimen/changing_button_width"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/clock_view"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/hour_hand_button_change_color"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/changing_button_margin_start"
+        android:layout_marginTop="@dimen/changing_button_margin_top"
         android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:layout_marginBottom="14dp"
         android:text="@string/clock_face_change_color" />
 
     <Button
         android:id="@+id/second_hand_button_change_color"
         android:layout_width="@dimen/changing_button_width"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/clock_view"
+        android:layout_below="@+id/stopStartButton"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/changing_button_margin_start"
+        android:layout_marginTop="@dimen/changing_button_margin_top"
         android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:layout_marginBottom="69dp"
         android:text="@string/change_color_second_hand" />
 
     <Button
         android:id="@+id/minute_hand_button_change_color"
         android:layout_width="@dimen/changing_button_width"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/clock_view"
+        android:layout_below="@+id/second_hand_button_change_color"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/changing_button_margin_start"
+        android:layout_marginTop="@dimen/changing_button_margin_top"
         android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:layout_marginBottom="116dp"
         android:text="@string/change_color_minute_hand" />
 
     <Button
         android:id="@+id/hour_hand_button_change_color"
         android:layout_width="@dimen/changing_button_width"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/clock_view"
+        android:layout_below="@+id/minute_hand_button_change_color"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/changing_button_margin_start"
+        android:layout_marginTop="@dimen/changing_button_margin_top"
         android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:layout_marginBottom="168dp"
         android:text="@string/change_color_hour_hand" />
 
     <Button
         android:id="@+id/stopStartButton"
         android:layout_width="@dimen/changing_button_width"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/clock_view"
+        android:layout_below="@+id/displayModeSwitch"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/changing_button_margin_start"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:layout_marginBottom="225dp"
         android:text="@string/stop_or_start_button" />
 
     <androidx.appcompat.widget.SwitchCompat
@@ -83,8 +85,8 @@
         android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="217dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginStart="218dp"
+        android:layout_marginEnd="6dp"
         android:checked="false"
 
         android:text="@string/change_numerical_clock_face" />

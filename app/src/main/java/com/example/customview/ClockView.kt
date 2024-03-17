@@ -32,8 +32,10 @@ class ClockCustomView @JvmOverloads constructor(
 
     private var colorOfClockFace = getColor(context, R.color.grey)
     private var colorOfNumbers = blackColorSample
+
     private var colorOfClockFrame = blackColorSample
     private var colorOfSpots = blackColorSample
+
     private var colorOfHourHand = blackColorSample
     private var colorOfMinuteHand = blackColorSample
     private var colorOfSecondHand = blackColorSample
@@ -42,42 +44,47 @@ class ClockCustomView @JvmOverloads constructor(
         textAlign = Paint.Align.CENTER
         textScaleX = 0.8f
         letterSpacing = -0.001f
+        isDither = true
     }
 
     private val paintHourHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         typeface = Typeface.DEFAULT
         strokeCap = Paint.Cap.ROUND
+        isDither = true
     }
 
     private val paintMinuteHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
+        isDither = true
     }
 
     private val paintSecondHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
+        isDither = true
     }
 
     private val paintClockFrame = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
+        isDither = true
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        clockRadius = min(width, height) / 2f - (min(width, height) / 25)
+        clockRadius = min(width, height) / 2f - (min(width, height) / 25f)
         coorCenterByX = width / 2f
         coorCenterByY = height / 2f
     }
 
     private fun calculationOfcoorXYpoints(pos: Int, radius: Float, centerX: Float, centerY: Float): PointF {
-        val angle = (pos * (Math.PI / 30)).toFloat()
+        val angle = (pos * (Math.PI / 30f)).toFloat()
         val x = radius * cos(angle) + centerX
         val y = radius * sin(angle) + centerY
         return PointF(x, y)
     }
 
     private fun calculationOfcoorXYlabels(hour: Int, radius: Float, centerX: Float, centerY: Float, paint: Paint): PointF {
-        val angle = (-Math.PI / 2 + hour * (Math.PI / 6)).toFloat()
-        val textBaselineToCenter = (paint.descent() + paint.ascent()) / 2
+        val angle = ( -Math.PI / 2f + hour * (Math.PI / 6f)).toFloat()
+        val textBaselineToCenter = (paint.descent() + paint.ascent()) / 2f
         val x = radius * cos(angle) + centerX
         val y = radius * sin(angle) + centerY - textBaselineToCenter
         return PointF(x, y)
@@ -92,10 +99,10 @@ class ClockCustomView @JvmOverloads constructor(
     private fun drawClockFrame(canvas: Canvas) {
         paintClockFrame.color = colorOfClockFrame
         paintClockFrame.style = Paint.Style.STROKE
-        paintClockFrame.strokeWidth = clockRadius / 12
-        val boundaryRadius = clockRadius - paintClockFrame.strokeWidth / 2
+        paintClockFrame.strokeWidth = clockRadius / 12f
+        val boundaryRadius = clockRadius - paintClockFrame.strokeWidth / 2f
         val minOfHeightWidth = min(width, height)
-        paintClockFrame.setShadowLayer(minOfHeightWidth / 2f / 20, 0.0f, 0.0f, Color.BLACK)
+        paintClockFrame.setShadowLayer(minOfHeightWidth / (2f * 20f), 0.0f, 0.0f, Color.BLACK)
         canvas.drawCircle(coorCenterByX, coorCenterByY, boundaryRadius, paintClockFrame)
         paintClockFrame.strokeWidth = 0f
     }
@@ -103,20 +110,20 @@ class ClockCustomView @JvmOverloads constructor(
     private fun drawSpotsOfClock(canvas: Canvas) {
         paint.color = colorOfSpots
         paint.style = Paint.Style.FILL
-        val drowSpotsLineRadius = clockRadius * 5 / 6
+        val drowSpotsLineRadius = clockRadius * 5f / 6f
         for (i in 0 until 60) {
             val position = calculationOfcoorXYpoints(i, drowSpotsLineRadius, coorCenterByX, coorCenterByY)
-            val dotRadius = if (i % 5 == 0) clockRadius / 96 else clockRadius / 128
+            val dotRadius = if (i % 5 == 0) clockRadius / 96f else clockRadius / 128f
             canvas.drawCircle(position.x, position.y, dotRadius, paint)
         }
     }
 
     private fun drawNumberOnClockFace(canvas: Canvas) {
-        paint.textSize = clockRadius * 2 / 7
+        paint.textSize = clockRadius * 2f / 7f
         paint.strokeWidth = 0f
         paint.color = colorOfNumbers
 
-        val labelsDrawLineRadius = clockRadius * 11 / 16
+        val labelsDrawLineRadius = clockRadius * 11f / 16f
         val numerals = if (isRomanNumeralDisplay) getRomanNumerals() else getArabicNumerals()
 
         for (i in 1..12) {
@@ -149,10 +156,10 @@ class ClockCustomView @JvmOverloads constructor(
     private fun drawClockFrameWithShadow(canvas: Canvas) {
         paintClockFrame.color = colorOfClockFrame
         paintClockFrame.style = Paint.Style.STROKE
-        paintClockFrame.strokeWidth = clockRadius / 12
+        paintClockFrame.strokeWidth = clockRadius / 12f
 
         paintClockFrame.setShadowLayer(10f, 0f, 0f, Color.GRAY)
-        val boundaryRadius = clockRadius - paintClockFrame.strokeWidth / 2
+        val boundaryRadius = clockRadius - paintClockFrame.strokeWidth / 2f
         val minOfHeightWidth = min(width, height)
         canvas.drawCircle(coorCenterByX, coorCenterByY, boundaryRadius, paintClockFrame)
         paintClockFrame.strokeWidth = 0f
@@ -162,68 +169,68 @@ class ClockCustomView @JvmOverloads constructor(
 
     private fun drawHourHand(canvas: Canvas, hourWithMinutes: Float) {
         paintHourHand.color = colorOfHourHand
-        paintHourHand.strokeWidth = clockRadius / 15
+        paintHourHand.strokeWidth = clockRadius / 15f
         val minOfHeightWidth = min(width, height)
         paintHourHand.setShadowLayer(
-            minOfHeightWidth / 2f / 20,
-            min(width, height) / 150.0f,
-            min(width, height) / 150.0f,
+            minOfHeightWidth / (2f * 20f),
+            min(width, height) / 175.0f,
+            min(width, height) / 175.0f,
             Color.BLACK
         )
         val angle = (Math.PI * hourWithMinutes / 6 + (-Math.PI / 2)).toFloat()
         canvas.drawLine(
-            coorCenterByX - cos(angle) * clockRadius * 3 / 14,
-            coorCenterByY - sin(angle) * clockRadius * 3 / 14,
-            coorCenterByX + cos(angle) * clockRadius * 7 / 14,
-            coorCenterByY + sin(angle) * clockRadius * 7 / 14,
+            coorCenterByX - cos(angle) * clockRadius * 0.025f,
+            coorCenterByY - sin(angle) * clockRadius * 0.025f,
+            coorCenterByX + cos(angle) * clockRadius * 0.5f,
+            coorCenterByY + sin(angle) * clockRadius * 0.5f,
             paintHourHand
         )
     }
 
     private fun drawMinuteHand(canvas: Canvas, minute: Float) {
         paintMinuteHand.color = colorOfMinuteHand
-        paintMinuteHand.strokeWidth = clockRadius / 40
+        paintMinuteHand.strokeWidth = clockRadius / 40f
         val minOfHeightWidth = min(width, height)
         paintMinuteHand.setShadowLayer(
-            minOfHeightWidth / 2f / 20,
+            minOfHeightWidth / (2f * 20f),
             min(width, height) / 80.0f,
-            min(width, height) / 60.0f,
+            min(width, height) / 80.0f,
             Color.BLACK
         )
-        val angle = (Math.PI * minute / 30 + (-Math.PI / 2)).toFloat()
+        val angle = (Math.PI * minute / 30f + (-Math.PI / 2f)).toFloat()
         canvas.drawLine(
-            coorCenterByX - cos(angle) * clockRadius * 2 / 7,
-            coorCenterByY - sin(angle) * clockRadius * 2 / 7,
-            coorCenterByX + cos(angle) * clockRadius * 5 / 7,
-            coorCenterByY + sin(angle) * clockRadius * 5 / 7,
+            coorCenterByX - cos(angle) * clockRadius * 0.25f,
+            coorCenterByY - sin(angle) * clockRadius * 0.25f,
+            coorCenterByX + cos(angle) * clockRadius * 0.75f,
+            coorCenterByY + sin(angle) * clockRadius * 0.75f,
             paintMinuteHand
         )
     }
 
     private fun drawSecondHand(canvas: Canvas, second: Int) {
         paintSecondHand.color = colorOfSecondHand
-        val angle = (Math.PI * second / 30 + (-Math.PI / 2)).toFloat()
+        val angle = (Math.PI * second / 30f + (-Math.PI / 2f)).toFloat()
         val minOfHeightWidth = min(width, height)
         paintSecondHand.setShadowLayer(
-            minOfHeightWidth / 2f / 25,
-            min(width, height) / 25.0f,
-            min(width, height) / 25.0f,
+            minOfHeightWidth / (2f * 25f),
+            min(width, height) / 30f,
+            min(width, height) / 30f,
             Color.BLACK
         )
-        paintSecondHand.strokeWidth = clockRadius / 80
+        paintSecondHand.strokeWidth = clockRadius / 80f
         canvas.drawLine(
-            coorCenterByX - cos(angle) * clockRadius * 1 / 14,
-            coorCenterByY - sin(angle) * clockRadius * 1 / 14,
-            coorCenterByX + cos(angle) * clockRadius * 5 / 7,
-            coorCenterByY + sin(angle) * clockRadius * 5 / 7,
+            coorCenterByX - cos(angle) * clockRadius * 0.075f,
+            coorCenterByY - sin(angle) * clockRadius * 0.075f,
+            coorCenterByX + cos(angle) * clockRadius * 0.75f,
+            coorCenterByY + sin(angle) * clockRadius * 0.75f,
             paintSecondHand
         )
-        paintSecondHand.strokeWidth = clockRadius / 50
+        paintSecondHand.strokeWidth = clockRadius / 50f
         canvas.drawLine(
-            coorCenterByX - cos(angle) * clockRadius * 2 / 7,
-            coorCenterByY - sin(angle) * clockRadius * 2 / 7,
-            coorCenterByX - cos(angle) * clockRadius * 1 / 14,
-            coorCenterByY - sin(angle) * clockRadius * 1 / 14,
+            coorCenterByX - cos(angle) * clockRadius * 0.3f,
+            coorCenterByY - sin(angle) * clockRadius * 0.3f,
+            coorCenterByX - cos(angle) * clockRadius * 0.075f,
+            coorCenterByY - sin(angle) * clockRadius * 0.075f,
             paintSecondHand
         )
     }
@@ -231,7 +238,7 @@ class ClockCustomView @JvmOverloads constructor(
     private fun drawCircle(canvas: Canvas) {
         paint.style = Paint.Style.FILL
         paint.color = paintSecondHand.color
-        canvas.drawCircle(coorCenterByX, coorCenterByY, clockRadius / 35, paint)
+        canvas.drawCircle(coorCenterByX, coorCenterByY, clockRadius / 35f, paint)
     }
 
     fun setHourHandColor(color: Int) {

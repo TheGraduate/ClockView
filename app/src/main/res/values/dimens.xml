@@ -3,4 +3,5 @@
     <dimen name="changing_button_width">280dp</dimen>
     <dimen name="changing_button_margin_start">60dp</dimen>
     <dimen name="changing_button_margin_end">60dp</dimen>
+    <dimen name="changing_button_margin_top">8dp</dimen>
 </resources>
