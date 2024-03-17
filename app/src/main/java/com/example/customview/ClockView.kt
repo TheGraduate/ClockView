@@ -23,7 +23,6 @@ class ClockCustomView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    //private val position: PointF = PointF(0.0f, 0.0f)
     private var clockRadius = 0.0f
     
     private var coorCenterByX = 0.0f
@@ -39,82 +38,28 @@ class ClockCustomView @JvmOverloads constructor(
     private var colorOfMinuteHand = blackColorSample
     private var colorOfSecondHand = blackColorSample
 
-    /*init {
-        context.withStyledAttributes(attrs, R.styleable.ClockView) {
-          *//*  colorOfClockFace = getColor(
-                R.styleable.ClockView_baseColor,
-                ContextCompat.getColor(context, R.color.light_gray)
-            )*//*
-           *//* colorOfNumbers = getColor(
-                R.styleable.ClockView_textColor,
-                ContextCompat.getColor(context, R.color.black)
-            )
-            colorOfClockFrame = getColor(
-                R.styleable.ClockView_frameColor,
-                ContextCompat.getColor(context, R.color.black)
-            )*//*
-          *//*  colorOfSpots = getColor(
-                R.styleable.ClockView_dotsColor,
-                ContextCompat.getColor(context, R.color.black)
-            )
-            colorOfHourHand = getColor(
-                R.styleable.ClockView_hourHandColor,
-                ContextCompat.getColor(context, R.color.black)
-            )
-            colorOfMinuteHand = getColor(
-                R.styleable.ClockView_minuteHandColor,
-                ContextCompat.getColor(context, R.color.black)
-            )
-            colorOfSecondHand = getColor(
-                R.styleable.ClockView_secondHandColor,
-                ContextCompat.getColor(context, R.color.black)
-            )*//*
-        }
-    }*/
-
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textScaleX = 0.8f
         letterSpacing = -0.001f
-        //typeface = Typeface.DEFAULT
-        //strokeCap = Paint.Cap.ROUND
-        //val typeFaceFont = resources.getFont(R.font.roboto)
-        //typeface = Typeface.create(typeFaceFont, Typeface.BOLD)
     }
 
     private val paintHourHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
-        //textScaleX = 0.9f
-        //letterSpacing = -0.15f
         typeface = Typeface.DEFAULT
         strokeCap = Paint.Cap.ROUND
     }
 
     private val paintMinuteHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
-        //textScaleX = 0.9f
-        //letterSpacing = -0.15f
-        //typeface = Typeface.DEFAULT
-        //strokeCap = Paint.Cap.ROUND
-        //style = Paint.Style.STROKE
     }
 
     private val paintSecondHand = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
-        //textScaleX = 0.9f
-        //letterSpacing = -0.15f
-        //typeface = Typeface.DEFAULT
-        //strokeCap = Paint.Cap.ROUND
-        //style = Paint.Style.STROKE
     }
 
     private val paintClockFrame = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
-        //textScaleX = 0.9f
-        //letterSpacing = -0.15f
-        //typeface = Typeface.DEFAULT
-        //strokeCap = Paint.Cap.ROUND
-        //style = Paint.Style.STROKE
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
@@ -122,19 +67,6 @@ class ClockCustomView @JvmOverloads constructor(
         coorCenterByX = width / 2f
         coorCenterByY = height / 2f
     }
-
-//    private fun PointF.calculationOfcoorXYpoints(pos: Int, radius: Float) {
-//        val angle = (pos * (Math.PI / 30)).toFloat()
-//        x = radius * cos(angle) + coorCenterByX
-//        y = radius * sin(angle) + coorCenterByY
-//    }
-//
-//    private fun PointF.calculationOfcoorXYlabels(hour: Int, radius: Float) {
-//        val angle = (-Math.PI / 2 + hour * (Math.PI / 6)).toFloat()
-//        x = radius * cos(angle) + coorCenterByX
-//        val textBaselineToCenter = (paint.descent() + paint.ascent()) / 2
-//        y = radius * sin(angle) + coorCenterByY - textBaselineToCenter
-//    }
 
     private fun calculationOfcoorXYpoints(pos: Int, radius: Float, centerX: Float, centerY: Float): PointF {
         val angle = (pos * (Math.PI / 30)).toFloat()
@@ -178,44 +110,6 @@ class ClockCustomView @JvmOverloads constructor(
             canvas.drawCircle(position.x, position.y, dotRadius, paint)
         }
     }
-
-   /* private fun drawSpotsOfClock(canvas: Canvas) {
-        paint.color = colorOfSpots
-        paint.style = Paint.Style.FILL
-        val dotsDrawLineRadius = clockRadius * 5 / 6
-        for (i in 0 until 60) {
-            position.calculationOfcoorXYpoints(i, dotsDrawLineRadius)
-            val dotRadius = if (i % 5 == 0) clockRadius / 96 else clockRadius / 128
-            canvas.drawCircle(position.x, position.y, dotRadius, paint)
-        }
-    }*/
-  /* private fun drawSpotsOfClock(canvas: Canvas) {
-       paint.color = colorOfSpots
-       paint.style = Paint.Style.FILL
-       val dotsDrawLineRadius = clockRadius * 5 / 6
-       for (i in 0 until 60) {
-           val position = calculationOfcoorXYpoints(i, dotsDrawLineRadius, centerX, centerY)
-           val dotRadius = if (i % 5 == 0) clockRadius / 96 else clockRadius / 128
-           canvas.drawCircle(position.x, position.y, dotRadius, paint)
-       }
-   }*/
-
-
-
-  /*  private fun drawNumberOnClockFace(canvas: Canvas) {
-        paint.textSize = clockRadius * 2 / 7
-        paint.strokeWidth = 0f
-        paint.color = colorOfNumbers
-
-
-        val labelsDrawLineRadius = clockRadius * 11 / 16
-        for (i in 1..12) {
-            position.calculationOfcoorXYlabels(i, labelsDrawLineRadius)
-            val label = i.toString()
-            canvas.drawText(label, position.x, position.y, paint)
-        }
-    }*/
-
 
     private fun drawNumberOnClockFace(canvas: Canvas) {
         paint.textSize = clockRadius * 2 / 7
