@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CustomView</string>
+
+    <string name="clock_face_change_color">Сменить цвет циферблата</string>
+    <string name="change_color_second_hand">Сменить цвет секундной стрелки</string>
+    <string name="change_color_minute_hand">Сменить цвет минутной стрелки</string>
+    <string name="change_color_hour_hand">Сменить цвет часовйо стрелки</string>
+    <string name="stop_or_start_button">Остановить\Запустить часы</string>
+    <string name="change_numerical_clock_face">Сменить тип чисел</string>
+
+</resources>

@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">CustomView</string>
+    <string name="app_name">Face of Clock</string>
+
+    <string name="clock_face_change_color">Change color of clock face</string>
+    <string name="change_color_second_hand">Change color of second hand</string>
+    <string name="change_color_minute_hand">Change color of minute hand</string>
+    <string name="change_color_hour_hand">Change color of hour hand</string>
+    <string name="stop_or_start_button">Stop/Start clock</string>
+    <string name="change_numerical_clock_face">change numerical of clock face</string>
+
 </resources>
