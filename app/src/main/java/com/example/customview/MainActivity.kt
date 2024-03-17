@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
             clockView.setBackgroundColor(newColor)
         }
 
-        clockView.startSecondHandAnimation()
-        clockView.startMinuteHandAnimation()
-        clockView.startHourHandAnimation()
+        //clockView.startSecondHandAnimation()
+        //clockView.startMinuteHandAnimation()
+        //clockView.startHourHandAnimation()
 
     }
 

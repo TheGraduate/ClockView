@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.os.Handler
+import android.os.Looper
 import android.view.animation.LinearInterpolator
 import kotlin.math.cos
 import kotlin.math.min
@@ -52,8 +54,6 @@ class ClockView @JvmOverloads constructor(
     private var secondHandAngle = 0f
     private var minuteHandAngle = 0f
     private var hourHandAngle = 0f
-
-    //private val animatorMap = mutableMapOf<String, ObjectAnimator>()
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClockView)
@@ -138,22 +138,13 @@ class ClockView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun startHourHandAnimation() {
+   /* fun startHourHandAnimation() {
         val rotateAnimation = ObjectAnimator.ofFloat(this, "hourHandAngle", 0f, 360f)
         rotateAnimation.duration = 43200000 // 12 hours
         rotateAnimation.repeatCount = ObjectAnimator.INFINITE
         rotateAnimation.interpolator = LinearInterpolator()
         rotateAnimation.start()
     }
-
- /*   fun startHourHandAnimation(durationMillis: Long) {
-        val rotateAnimation = ObjectAnimator.ofFloat(this, "hourHandAngle", 0f, 360f)
-        rotateAnimation.duration = durationMillis
-        rotateAnimation.repeatCount = ObjectAnimator.INFINITE
-        rotateAnimation.interpolator = LinearInterpolator()
-        rotateAnimation.repeatMode = ObjectAnimator.RESTART
-        rotateAnimation.start()
-    }*/
 
     fun startMinuteHandAnimation() {
         val rotateAnimation = ObjectAnimator.ofFloat(this, "minuteHandAngle", 0f, 360f)
@@ -163,18 +154,9 @@ class ClockView @JvmOverloads constructor(
         rotateAnimation.start()
     }
 
-    /*fun startMinuteHandAnimation(durationMillis: Long) {
-        val rotateAnimation = ObjectAnimator.ofFloat(this, "minuteHandAngle", 0f, 360f)
-        rotateAnimation.duration = durationMillis
-        rotateAnimation.repeatCount = ObjectAnimator.INFINITE
-        rotateAnimation.interpolator = LinearInterpolator()
-        rotateAnimation.repeatMode = ObjectAnimator.RESTART
-        rotateAnimation.start()
-    }*/
-
     fun startSecondHandAnimation() {
         val rotateAnimation = ObjectAnimator.ofFloat(this, "secondHandAngle", 0f, 360f)
-        rotateAnimation.duration = 60000 // 60 seconds
+        rotateAnimation.duration = 5000 // 60 seconds
         rotateAnimation.repeatCount = ObjectAnimator.INFINITE
         rotateAnimation.interpolator = LinearInterpolator()
 
@@ -187,47 +169,17 @@ class ClockView @JvmOverloads constructor(
         }
 
         rotateAnimation.start()
-    }
+    }*/
 
-    private fun calculateMinuteAngle(secondAngle: Float): Float {
+   /* private fun calculateMinuteAngle(secondAngle: Float): Float {
         return (secondAngle / 60.0).toFloat()
     }
 
     private fun calculateHourAngle(secondAngle: Float, minuteAngle: Float): Float {
         val totalMinutes = secondAngle / 60.0 + minuteAngle
         return (totalMinutes / 60.0 * 30.0).toFloat()
-    }
+    }*/
 
-    /*fun accelerateClockAnimation(durationMillis: Long) {
-        val rotateAnimation = ObjectAnimator.ofFloat(this, "secondHandAngle", 0f, 360f)
-        rotateAnimation.duration = durationMillis
-        rotateAnimation.repeatCount = ObjectAnimator.INFINITE
-        rotateAnimation.interpolator = LinearInterpolator()
-        rotateAnimation.start()
-
-        rotateAnimation.addUpdateListener { animation ->
-            val currentSecondAngle = animation.animatedValue as Float
-
-            var minuteAccelerationFactor = 60 / currentSecondAngle
-            var hourAccelerationFactor = 3600 / currentSecondAngle
-
-            if (minuteAccelerationFactor < 0) minuteAccelerationFactor = 1F
-            if (hourAccelerationFactor < 0) hourAccelerationFactor = 1F
-
-            val minuteRotateAnimation = ObjectAnimator.ofFloat(this, "minuteHandAngle", 0f, 360f)
-            minuteRotateAnimation.duration = durationMillis * minuteAccelerationFactor.toLong()
-            minuteRotateAnimation.repeatCount = ObjectAnimator.INFINITE
-            minuteRotateAnimation.interpolator = LinearInterpolator()
-            minuteRotateAnimation.start()
-
-            val hourRotateAnimation = ObjectAnimator.ofFloat(this, "hourHandAngle", 0f, 360f)
-            hourRotateAnimation.duration = durationMillis * hourAccelerationFactor.toLong()
-            hourRotateAnimation.repeatCount = ObjectAnimator.INFINITE
-            hourRotateAnimation.interpolator = LinearInterpolator()
-            hourRotateAnimation.start()
-        }
-    }
-*/
     override fun onSaveInstanceState(): Parcelable {
         val bundle = Bundle()
         bundle.putParcelable("superState", super.onSaveInstanceState())
@@ -244,4 +196,41 @@ class ClockView @JvmOverloads constructor(
         }
         super.onRestoreInstanceState(superState)
     }
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val updateTimeRunnable = object : Runnable {
+        override fun run() {
+            updateClock()
+            handler.postDelayed(this, 1000)
+        }
+    }
+
+    private fun updateClock() {
+        val currentTime = Calendar.getInstance()
+        val second = currentTime.get(Calendar.SECOND)
+        val secondAngle = (second - 15) * 6f
+        setSecondHandAngle(secondAngle)
+
+        val minute = currentTime.get(Calendar.MINUTE)
+        val minuteAngle = (minute + second / 60.0 - 36) * 6f
+        setMinuteHandAngle(minuteAngle.toFloat())
+
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val hourAngle = (hour % 12) * 30f + minute / 1.5f
+        setHourHandAngle(hourAngle)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        updateClock()
+        handler.postDelayed(updateTimeRunnable, 1000)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        handler.removeCallbacks(updateTimeRunnable)
+    }
+
+
 }
