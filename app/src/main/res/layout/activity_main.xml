@@ -1,107 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <com.example.customview.ClockCustomView
-        android:id="@+id/clock_view"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_below="@+id/clock_face_button_change_color"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
-
-    <Button
-        android:id="@+id/clock_face_button_change_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/hour_hand_button_change_color"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="@dimen/changing_button_margin_top"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/clock_face_change_color" />
-
-    <Button
-        android:id="@+id/second_hand_button_change_color"
-        android:layout_width="@dimen/changing_button_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/stopStartButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="@dimen/changing_button_margin_top"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/change_color_second_hand" />
-
-    <Button
-        android:id="@+id/minute_hand_button_change_color"
-        android:layout_width="@dimen/changing_button_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/second_hand_button_change_color"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="@dimen/changing_button_margin_top"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/change_color_minute_hand" />
-
-    <Button
-        android:id="@+id/hour_hand_button_change_color"
-        android:layout_width="@dimen/changing_button_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/minute_hand_button_change_color"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="@dimen/changing_button_margin_top"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/change_color_hour_hand" />
-
-    <Button
-        android:id="@+id/stopStartButton"
-        android:layout_width="@dimen/changing_button_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/change_angle_rotation_of_clock"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/stop_or_start_button" />
-
-    <Button
-        android:id="@+id/change_angle_rotation_of_clock"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/displayModeSwitch"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/changing_button_margin_start"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="@dimen/changing_button_margin_end"
-        android:text="@string/change_the_rotation_of_the_clock" />
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/displayModeSwitch"
-        android:layout_width="188dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="218dp"
-        android:layout_marginEnd="6dp"
-        android:checked="false"
+        <com.example.customview.ClockCustomView
+            android:id="@+id/clock_view"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_below="@+id/clock_face_button_change_color"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp" />
 
-        android:text="@string/change_numerical_clock_face" />
+        <Button
+            android:id="@+id/clock_face_button_change_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hour_hand_button_change_color"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="@dimen/changing_button_margin_top"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/clock_face_change_color" />
 
+        <Button
+            android:id="@+id/second_hand_button_change_color"
+            android:layout_width="@dimen/changing_button_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stopStartButton"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="@dimen/changing_button_margin_top"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/change_color_second_hand" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/minute_hand_button_change_color"
+            android:layout_width="@dimen/changing_button_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_hand_button_change_color"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="@dimen/changing_button_margin_top"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/change_color_minute_hand" />
+
+        <Button
+            android:id="@+id/hour_hand_button_change_color"
+            android:layout_width="@dimen/changing_button_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/minute_hand_button_change_color"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="@dimen/changing_button_margin_top"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/change_color_hour_hand" />
+
+        <Button
+            android:id="@+id/stopStartButton"
+            android:layout_width="@dimen/changing_button_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_angle_rotation_of_clock"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/stop_or_start_button" />
+
+        <Button
+            android:id="@+id/change_angle_rotation_of_clock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/displayModeSwitch"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/changing_button_margin_start"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/changing_button_margin_end"
+            android:text="@string/change_the_rotation_of_the_clock" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/displayModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:checked="false" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@+id/displayModeSwitch"
+            android:text="@string/change_numerical_clock_face"
+            app:layout_constraintEnd_toEndOf="@id/displayModeSwitch"
+            app:layout_constraintStart_toStartOf="@id/displayModeSwitch"
+            app:layout_constraintTop_toBottomOf="@id/displayModeSwitch" />
+    </RelativeLayout>
+
+</ScrollView>
