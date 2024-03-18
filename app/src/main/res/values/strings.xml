@@ -7,5 +7,6 @@
     <string name="change_color_hour_hand">Change color of hour hand</string>
     <string name="stop_or_start_button">Stop/Start clock</string>
     <string name="change_numerical_clock_face">change numerical of clock face</string>
+    <string name="change_the_rotation_of_the_clock">Change the rotation of the clock</string>
 
 </resources>

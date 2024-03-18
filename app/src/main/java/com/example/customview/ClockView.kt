@@ -82,6 +82,17 @@ class ClockCustomView @JvmOverloads constructor(
         return PointF(x, y)
     }
 
+    private fun drawSpotsOfClock(canvas: Canvas) {
+        paint.color = colorOfSpots
+        paint.style = Paint.Style.FILL
+        val drowSpotsLineRadius = clockRadius * 5f / 6f
+        for (i in 0 until 60) {
+            val position = calculationOfcoorXYpoints(i, drowSpotsLineRadius, coorCenterByX, coorCenterByY)
+            val dotRadius = if (i % 5 == 0) clockRadius / 96f else clockRadius / 128f
+            canvas.drawCircle(position.x, position.y, dotRadius, paint)
+        }
+    }
+
     private fun calculationOfcoorXYlabels(hour: Int, radius: Float, centerX: Float, centerY: Float, paint: Paint): PointF {
         val angle = ( -Math.PI / 2f + hour * (Math.PI / 6f)).toFloat()
         val textBaselineToCenter = (paint.descent() + paint.ascent()) / 2f
@@ -90,10 +101,19 @@ class ClockCustomView @JvmOverloads constructor(
         return PointF(x, y)
     }
 
-    private fun drawClockFace(canvas: Canvas) {
-        paint.color = colorOfClockFace
-        paint.style = Paint.Style.FILL
-        canvas.drawCircle(coorCenterByX, coorCenterByY, clockRadius, paint)
+    private fun drawNumberOnClockFace(canvas: Canvas) {
+        paint.textSize = clockRadius * 2f / 7f
+        paint.strokeWidth = 0f
+        paint.color = colorOfNumbers
+
+        val labelsDrawLineRadius = clockRadius * 11f / 16f
+        val numerals = if (isRomanNumeralDisplay) getRomanNumerals() else getArabicNumerals()
+
+        for (i in 1..12) {
+            val position = calculationOfcoorXYlabels(i, labelsDrawLineRadius, coorCenterByX, coorCenterByY, paint)
+            val label = numerals[i - 1]
+            canvas.drawText(label, position.x, position.y, paint)
+        }
     }
 
     private fun drawClockFrame(canvas: Canvas) {
@@ -107,30 +127,11 @@ class ClockCustomView @JvmOverloads constructor(
         paintClockFrame.strokeWidth = 0f
     }
 
-    private fun drawSpotsOfClock(canvas: Canvas) {
-        paint.color = colorOfSpots
+
+    private fun drawClockFace(canvas: Canvas) {
+        paint.color = colorOfClockFace
         paint.style = Paint.Style.FILL
-        val drowSpotsLineRadius = clockRadius * 5f / 6f
-        for (i in 0 until 60) {
-            val position = calculationOfcoorXYpoints(i, drowSpotsLineRadius, coorCenterByX, coorCenterByY)
-            val dotRadius = if (i % 5 == 0) clockRadius / 96f else clockRadius / 128f
-            canvas.drawCircle(position.x, position.y, dotRadius, paint)
-        }
-    }
-
-    private fun drawNumberOnClockFace(canvas: Canvas) {
-        paint.textSize = clockRadius * 2f / 7f
-        paint.strokeWidth = 0f
-        paint.color = colorOfNumbers
-
-        val labelsDrawLineRadius = clockRadius * 11f / 16f
-        val numerals = if (isRomanNumeralDisplay) getRomanNumerals() else getArabicNumerals()
-
-        for (i in 1..12) {
-            val position = calculationOfcoorXYlabels(i, labelsDrawLineRadius, coorCenterByX, coorCenterByY, paint)
-            val label = numerals[i - 1] // Получаем цифру из массива
-            canvas.drawText(label, position.x, position.y, paint)
-        }
+        canvas.drawCircle(coorCenterByX, coorCenterByY, clockRadius, paint)
     }
 
     private fun getRomanNumerals(): Array<String> {
@@ -273,19 +274,28 @@ class ClockCustomView @JvmOverloads constructor(
         invalidate()
     }
 
+    var rotationAngle = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+        get() = field
+
+    fun setCustomRotationAngle(angle: Float) {
+        rotationAngle = angle
+        invalidate()
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        canvas.rotate(rotationAngle, coorCenterByX, coorCenterByY)
         drawClockFace(canvas)
         drawNumberOnClockFace(canvas)
-
         drawClockFrame(canvas)
         drawClockFrameWithShadow(canvas)
-
         drawSpotsOfClock(canvas)
-
         drawClockHands(canvas)
         drawCircle(canvas)
-
         if (isRunning) {
             postInvalidateDelayed(UPDATE_PERIOD_FOR_CLOCK.toLong())
         }

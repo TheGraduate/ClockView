@@ -9,5 +9,6 @@
     <string name="change_color_hour_hand">Сменить цвет часовйо стрелки</string>
     <string name="stop_or_start_button">Остановить\Запустить часы</string>
     <string name="change_numerical_clock_face">Сменить тип чисел</string>
+    <string name="change_the_rotation_of_the_clock">Повернуть часы</string>
 
 </resources>

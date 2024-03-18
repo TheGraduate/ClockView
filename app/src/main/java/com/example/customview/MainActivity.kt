@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         clockView = findViewById(R.id.clock_view)
+        clockView = findViewById(R.id.clock_view)
 
         val clockFaceButtonChangeColor = findViewById<View>(R.id.clock_face_button_change_color)
         val secondHandButtonChangeColor = findViewById<View>(R.id.second_hand_button_change_color)
@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val hourHandButtonChangeColor = findViewById<View>(R.id.hour_hand_button_change_color)
         val stopStartButton = findViewById<View>(R.id.stopStartButton)
         val changeNumericalButton: SwitchCompat = findViewById(R.id.displayModeSwitch)
+        val changeAngleRotationOfClock = findViewById<View>(R.id.change_angle_rotation_of_clock)
 
 
         clockFaceButtonChangeColor.setOnClickListener {
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 clockView.toggleDisplayMode()
             }
+        }
+
+        changeAngleRotationOfClock.setOnClickListener {
+            clockView.setCustomRotationAngle(clockView.rotationAngle + 90f)
         }
 
 
